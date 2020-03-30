@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace g3
 {
@@ -69,7 +66,7 @@ namespace g3
             Vertices = new List<Vector3d>(tubePath.Vertices);
             Polygon = new Polygon2d(tubeShape);
             ClosedLoop = tubePath.Closed;
-            Capped = ! ClosedLoop;
+            Capped = !ClosedLoop;
         }
 
 
@@ -96,24 +93,33 @@ namespace g3
             int nCapTris = (Capped && ClosedLoop == false) ? 2 * Slices : 0;
             triangles = new IndexArray3i(nSpanTris + nCapTris);
 
-            Frame3f fCur = new Frame3f(Frame);
-            Vector3d dv = CurveUtils.GetTangent(Vertices, 0, ClosedLoop);
-            fCur.Origin = (Vector3f)Vertices[0];
-            fCur.AlignAxis(2, (Vector3f)dv);
+            Frame3f fCur = Frame3f.Identity;
             Frame3f fStart = new Frame3f(fCur);
 
             double circumference = Polygon.ArcLength;
             double pathLength = CurveUtils.ArcLength(Vertices, ClosedLoop);
             double accum_path_u = 0;
 
+            Vector3f tangentPrev = Vector3f.Zero;
+
             // generate tube
             for (int ri = 0; ri < nRings; ++ri) {
                 int vi = ri % NV;
 
+                Vector3f vertex = (Vector3f)Vertices[vi];
+                Vector3f tangent = (Vector3f)CurveUtils.GetTangent(Vertices, vi, ClosedLoop);
+
                 // propagate frame
-                Vector3d tangent = CurveUtils.GetTangent(Vertices, vi, ClosedLoop);
-                fCur.Origin = (Vector3f)Vertices[vi];
-                fCur.AlignAxis(2, (Vector3f)tangent);
+                if (ri == 0) {
+                    Vector3f perpendicular = GetPerpedicular(tangent);
+                    fCur = new Frame3f(vertex, perpendicular, tangent.Cross(perpendicular), tangent);
+                    fStart = new Frame3f(fCur);
+                } else {
+                    fCur.Origin = vertex;
+                    fCur.Rotate(Quaternionf.FromTo(tangentPrev, tangent));
+                }
+
+                tangentPrev = tangent;
 
                 // generate vertices
                 int nStartR = ri * nRingSize;
@@ -203,6 +209,28 @@ namespace g3
             }
 
             return this;
+        }
+
+        private static Vector3f GetPerpedicular(Vector3f vector)
+        {
+            const double Epsilon = 1e-8;
+
+            if (vector.LengthSquared < Epsilon)
+                return Vector3f.Zero;
+
+            Vector3f cross = vector.Cross(Vector3f.AxisX);
+            if (cross.LengthSquared > Epsilon)
+                return cross.Normalized;
+
+            cross = vector.Cross(Vector3f.AxisY);
+            if (cross.LengthSquared > Epsilon)
+                return cross.Normalized;
+
+            cross = vector.Cross(Vector3f.AxisZ);
+            if (cross.LengthSquared > Epsilon)
+                return cross.Normalized;
+
+            return Vector3f.Zero;
         }
     }
 }
