@@ -119,7 +119,7 @@ namespace g3
             Vector3d diff = ray.Origin - V0;
             Vector3d edge1 = V1 - V0;
             Vector3d edge2 = V2 - V0;
-            Vector3d normal = edge1.Cross(ref edge2);
+            Vector3d normal = edge1.Cross(edge2);
 
             rayT = double.MaxValue;
 
@@ -141,10 +141,10 @@ namespace g3
                 return false;
             }
 
-            Vector3d cross = diff.Cross(ref edge2);
+            Vector3d cross = diff.Cross(edge2);
             double DdQxE2 = sign * ray.Direction.Dot(ref cross);
             if (DdQxE2 >= 0) {
-                cross = edge1.Cross(ref diff);
+                cross = edge1.Cross(diff);
                 double DdE1xQ = sign * ray.Direction.Dot(ref cross);
                 if (DdE1xQ >= 0) {
                     if (DdQxE2 + DdE1xQ <= DdN) {

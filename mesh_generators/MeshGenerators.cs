@@ -217,21 +217,21 @@ namespace g3
 
         protected Vector3d bilerp(ref Vector3d v00, ref Vector3d v10, ref Vector3d v11, ref Vector3d v01, double tx, double ty)
         {
-            Vector3d a = Vector3d.Lerp(ref v00, ref v01, ty);
-            Vector3d b = Vector3d.Lerp(ref v10, ref v11, ty);
+            Vector3d a = Vector3d.Lerp(v00, v01, ty);
+            Vector3d b = Vector3d.Lerp(v10, v11, ty);
             return Vector3d.Lerp(a, b, tx);
         }
 
         protected Vector2d bilerp(ref Vector2d v00, ref Vector2d v10, ref Vector2d v11, ref Vector2d v01, double tx, double ty)
         {
-            Vector2d a = Vector2d.Lerp(ref v00, ref v01, ty);
-            Vector2d b = Vector2d.Lerp(ref v10, ref v11, ty);
+            Vector2d a = Vector2d.Lerp(v00, v01, ty);
+            Vector2d b = Vector2d.Lerp(v10, v11, ty);
             return Vector2d.Lerp(a, b, tx);
         }
         protected Vector2f bilerp(ref Vector2f v00, ref Vector2f v10, ref Vector2f v11, ref Vector2f v01, float tx, float ty)
         {
-            Vector2f a = Vector2f.Lerp(ref v00, ref v01, ty);
-            Vector2f b = Vector2f.Lerp(ref v10, ref v11, ty);
+            Vector2f a = Vector2f.Lerp(v00, v01, ty);
+            Vector2f b = Vector2f.Lerp(v10, v11, ty);
             return Vector2f.Lerp(a, b, tx);
         }
 

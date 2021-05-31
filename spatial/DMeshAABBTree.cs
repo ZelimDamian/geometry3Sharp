@@ -217,7 +217,7 @@ namespace g3
                         continue;
                     Vector3i tv = mesh.GetTriangle(ti);
                     for ( int j = 0; j < 3; ++j ) {
-                        double dsqr = mesh.GetVertex(tv[j]).DistanceSquared(ref p);
+                        double dsqr = mesh.GetVertex(tv[j]).DistanceSquared(p);
                         if (  dsqr < fNearestSqr ) {
                             fNearestSqr = dsqr;
                             vid = tv[j];
@@ -1459,7 +1459,7 @@ namespace g3
             if (FastWindingCache.TryGetValue(iBox, out cacheInfo) == false)
                 return false;
 
-            double dist_qp = cacheInfo.Center.Distance(ref q);
+            double dist_qp = cacheInfo.Center.Distance(q);
             if (dist_qp > FWNBeta * cacheInfo.R)
                 return true;
 

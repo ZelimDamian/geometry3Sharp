@@ -490,7 +490,7 @@ namespace g3
         /// </summary>
         public static double AspectRatio(ref Vector3d v1, ref Vector3d v2, ref Vector3d v3)
         {
-            double a = v1.Distance(ref v2), b = v2.Distance(ref v3), c = v3.Distance(ref v1);
+            double a = v1.Distance(v2), b = v2.Distance(v3), c = v3.Distance(v1);
             double s = (a + b + c) / 2.0;
             return (a * b * c) / (8.0 * (s - a) * (s - b) * (s - c));
         }

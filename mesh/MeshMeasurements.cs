@@ -330,7 +330,7 @@ namespace g3
             } else {
                 foreach (Vector3d v in mesh.Vertices()) {
                     Vector3d vT = TransformF(v);
-                    Vector3d fv = frame.ToFrameP(ref vT);
+                    Vector3d fv = frame.ToFrameP(vT);
                     bounds.Contain(ref fv);
                 }
             }

@@ -289,7 +289,7 @@ namespace gs
                 foreach (int eid in Mesh.VtxEdgesItr(vNew)) {
                     Index2i ev = Mesh.GetEdgeV(eid);
                     int othervid = (ev.a == vNew) ? ev.b : ev.a;
-                    if (mesh.GetVertex(othervid).DistanceSquared(ref v) > max_edge_len_sqr)
+                    if (mesh.GetVertex(othervid).DistanceSquared(v) > max_edge_len_sqr)
                         queue_edge(eid);
                 }
                 //queue_one_ring(vNew);
@@ -603,10 +603,10 @@ namespace gs
 
                 // ugh could probably do this more efficiently...
                 Frame3f triF = new Frame3f(centroid, normal);
-                v0 = triF.ToFrameP(ref v0); v1 = triF.ToFrameP(ref v1); v2 = triF.ToFrameP(ref v2);
+                v0 = triF.ToFrameP(v0); v1 = triF.ToFrameP(v1); v2 = triF.ToFrameP(v2);
                 triF.AlignAxis(2, (Vector3f)projNormal);
                 triF.Origin = (Vector3f)projPos;
-                v0 = triF.FromFrameP(ref v0); v1 = triF.FromFrameP(ref v1); v2 = triF.FromFrameP(ref v2);
+                v0 = triF.FromFrameP(v0); v1 = triF.FromFrameP(v1); v2 = triF.FromFrameP(v2);
 
                 double dot = normal.Dot(projNormal);
                 dot = MathUtil.Clamp(dot, 0, 1.0);

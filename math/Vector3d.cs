@@ -127,27 +127,21 @@ namespace g3
             return x * v2.x + y * v2.y + z * v2.z;
         }
 
-        public static double Dot(Vector3d v1, Vector3d v2) {
-            return v1.Dot(ref v2);
+        public static double Dot(in Vector3d v1, in Vector3d v2) {
+            return v1.Dot(v2);
         }
 
-        public Vector3d Cross(Vector3d v2) {
+        public Vector3d Cross(in Vector3d v2) {
             return new Vector3d(
                 y * v2.z - z * v2.y,
                 z * v2.x - x * v2.z,
                 x * v2.y - y * v2.x);
         }
-        public Vector3d Cross(ref Vector3d v2) {
-            return new Vector3d(
-                y * v2.z - z * v2.y,
-                z * v2.x - x * v2.z,
-                x * v2.y - y * v2.x);
-        }
-        public static Vector3d Cross(Vector3d v1, Vector3d v2) {
-            return v1.Cross(ref v2);
+        public static Vector3d Cross(in Vector3d v1, in Vector3d v2) {
+            return v1.Cross(v2);
         }
 
-        public Vector3d UnitCross(ref Vector3d v2) {
+        public Vector3d UnitCross(in Vector3d v2) {
             Vector3d n = new Vector3d(
                 y * v2.z - z * v2.y,
                 z * v2.x - x * v2.z,
@@ -155,49 +149,38 @@ namespace g3
             n.Normalize();
             return n;
         }
-        public Vector3d UnitCross(Vector3d v2) {
-            return UnitCross(ref v2);
-        }
 
 
-        public double AngleD(Vector3d v2)
+        public double AngleD(in Vector3d v2)
         {
             double fDot = MathUtil.Clamp(Dot(v2), -1, 1);
             return Math.Acos(fDot) * MathUtil.Rad2Deg;
         }
-        public static double AngleD(Vector3d v1, Vector3d v2)
+        public static double AngleD(in Vector3d v1, in Vector3d v2)
         {
             return v1.AngleD(v2);
         }
-        public double AngleR(Vector3d v2)
+        public double AngleR(in Vector3d v2)
         {
             double fDot = MathUtil.Clamp(Dot(v2), -1, 1);
             return Math.Acos(fDot);
         }
-        public static double AngleR(Vector3d v1, Vector3d v2)
+        public static double AngleR(in Vector3d v1, in Vector3d v2)
         {
             return v1.AngleR(v2);
         }
 
-		public double DistanceSquared(Vector3d v2) {
-			double dx = v2.x-x, dy = v2.y-y, dz = v2.z-z;
-			return dx*dx + dy*dy + dz*dz;
-		}
-		public double DistanceSquared(ref Vector3d v2) {
+		public double DistanceSquared(in Vector3d v2) {
 			double dx = v2.x-x, dy = v2.y-y, dz = v2.z-z;
 			return dx*dx + dy*dy + dz*dz;
 		}
 
-        public double Distance(Vector3d v2) {
-            double dx = v2.x-x, dy = v2.y-y, dz = v2.z-z;
-			return Math.Sqrt(dx*dx + dy*dy + dz*dz);
-		}
-        public double Distance(ref Vector3d v2) {
+        public double Distance(in Vector3d v2) {
             double dx = v2.x-x, dy = v2.y-y, dz = v2.z-z;
 			return Math.Sqrt(dx*dx + dy*dy + dz*dz);
 		}
 
-        public void Set(Vector3d o)
+        public void Set(in Vector3d o)
         {
             x = o.x; y = o.y; z = o.z;
         }
@@ -205,74 +188,74 @@ namespace g3
         {
             x = fX; y = fY; z = fZ;
         }
-        public void Add(Vector3d o)
+        public void Add(in Vector3d o)
         {
             x += o.x; y += o.y; z += o.z;
         }
-        public void Subtract(Vector3d o)
+        public void Subtract(in Vector3d o)
         {
             x -= o.x; y -= o.y; z -= o.z;
         }
 
 
 
-        public static Vector3d operator -(Vector3d v)
+        public static Vector3d operator -(in Vector3d v)
         {
             return new Vector3d(-v.x, -v.y, -v.z);
         }
 
-        public static Vector3d operator *(double f, Vector3d v)
+        public static Vector3d operator *(double f, in Vector3d v)
         {
             return new Vector3d(f * v.x, f * v.y, f * v.z);
         }
-        public static Vector3d operator *(Vector3d v, double f)
+        public static Vector3d operator *(in Vector3d v, double f)
         {
             return new Vector3d(f * v.x, f * v.y, f * v.z);
         }
-        public static Vector3d operator /(Vector3d v, double f)
+        public static Vector3d operator /(in Vector3d v, double f)
         {
             return new Vector3d(v.x / f, v.y / f, v.z / f);
         }
-        public static Vector3d operator /(double f, Vector3d v)
+        public static Vector3d operator /(double f, in Vector3d v)
         {
             return new Vector3d(f / v.x, f / v.y, f / v.z);
         }
 
-        public static Vector3d operator *(Vector3d a, Vector3d b)
+        public static Vector3d operator *(in Vector3d a, in Vector3d b)
         {
             return new Vector3d(a.x * b.x, a.y * b.y, a.z * b.z);
         }
-        public static Vector3d operator /(Vector3d a, Vector3d b)
+        public static Vector3d operator /(in Vector3d a, in Vector3d b)
         {
             return new Vector3d(a.x / b.x, a.y / b.y, a.z / b.z);
         }
 
 
-        public static Vector3d operator +(Vector3d v0, Vector3d v1)
+        public static Vector3d operator +(in Vector3d v0, in Vector3d v1)
         {
             return new Vector3d(v0.x + v1.x, v0.y + v1.y, v0.z + v1.z);
         }
-        public static Vector3d operator +(Vector3d v0, double f)
+        public static Vector3d operator +(in Vector3d v0, double f)
         {
             return new Vector3d(v0.x + f, v0.y + f, v0.z + f);
         }
 
-        public static Vector3d operator -(Vector3d v0, Vector3d v1)
+        public static Vector3d operator -(in Vector3d v0, in Vector3d v1)
         {
             return new Vector3d(v0.x - v1.x, v0.y - v1.y, v0.z - v1.z);
         }
-        public static Vector3d operator -(Vector3d v0, double f)
+        public static Vector3d operator -(in Vector3d v0, double f)
         {
             return new Vector3d(v0.x - f, v0.y - f, v0.z - f);
         }
 
 
 
-        public static bool operator ==(Vector3d a, Vector3d b)
+        public static bool operator ==(in Vector3d a, in Vector3d b)
         {
             return (a.x == b.x && a.y == b.y && a.z == b.z);
         }
-        public static bool operator !=(Vector3d a, Vector3d b)
+        public static bool operator !=(in Vector3d a, in Vector3d b)
         {
             return (a.x != b.x || a.y != b.y || a.z != b.z);
         }
@@ -308,18 +291,14 @@ namespace g3
         }
 
 
-        public bool EpsilonEqual(Vector3d v2, double epsilon) {
+        public bool EpsilonEqual(in Vector3d v2, double epsilon) {
             return Math.Abs(x - v2.x) <= epsilon && 
                    Math.Abs(y - v2.y) <= epsilon &&
                    Math.Abs(z - v2.z) <= epsilon;
         }
 
 
-        public static Vector3d Lerp(Vector3d a, Vector3d b, double t) {
-            double s = 1 - t;
-            return new Vector3d(s * a.x + t * b.x, s * a.y + t * b.y, s * a.z + t * b.z);
-        }
-        public static Vector3d Lerp(ref Vector3d a, ref Vector3d b, double t) {
+        public static Vector3d Lerp(in Vector3d a, in Vector3d b, double t) {
             double s = 1 - t;
             return new Vector3d(s * a.x + t * b.x, s * a.y + t * b.y, s * a.z + t * b.z);
         }
@@ -335,11 +314,11 @@ namespace g3
 
 
 
-        public static implicit operator Vector3d(Vector3f v)
+        public static implicit operator Vector3d(in Vector3f v)
         {
             return new Vector3d(v.x, v.y, v.z);
         }
-        public static explicit operator Vector3f(Vector3d v)
+        public static explicit operator Vector3f(in Vector3d v)
         {
             return new Vector3f((float)v.x, (float)v.y, (float)v.z);
         }
@@ -350,7 +329,7 @@ namespace g3
         {
             return new Vector3d(v.x, v.y, v.z);
         }
-        public static explicit operator Vector3(Vector3d v)
+        public static explicit operator Vector3(in Vector3d v)
         {
             return new Vector3((float)v.x, (float)v.y, (float)v.z);
         }

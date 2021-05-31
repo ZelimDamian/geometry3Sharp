@@ -64,7 +64,7 @@ namespace g3
                 order2 += a * new Matrix3d(ref dcp, ref n);
 
                 // this is just for return value...
-                double maxdist = MathUtil.Max(P0.DistanceSquared(ref p), P1.DistanceSquared(ref p), P2.DistanceSquared(ref p));
+                double maxdist = MathUtil.Max(P0.DistanceSquared(p), P1.DistanceSquared(p), P2.DistanceSquared(p));
                 r = Math.Max(r, Math.Sqrt(maxdist));
             }
         }

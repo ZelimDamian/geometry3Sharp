@@ -158,7 +158,7 @@ namespace g3
                             double t = (double)i / (double)(N - 1);
                             Vector3i vidx = lerp(ref ai, ref bi, t);
                             if (edgeVerts.ContainsKey(vidx) == false) {
-                                Vector3d v = Vector3d.Lerp(ref a, ref b, t);
+                                Vector3d v = Vector3d.Lerp(a, b, t);
                                 normals[vi] = (Vector3f)v.Normalized;
                                 uv[vi] = Vector2f.Zero;
                                 edgeVerts[vidx] = vi;

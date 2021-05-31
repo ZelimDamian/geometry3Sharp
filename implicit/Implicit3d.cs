@@ -33,7 +33,7 @@ namespace g3
 
         public double Value(ref Vector3d pt)
         {
-			return pt.Distance(ref Origin) - Radius;
+			return pt.Distance(Origin) - Radius;
         }
 
 		public AxisAlignedBox3d Bounds()

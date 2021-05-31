@@ -251,7 +251,7 @@ namespace g3
             E0.V2 = triangle0.V0 - triangle0.V2;
 
             // Get normal vector of triangle0.
-            Vector3d N0 = E0.V0.UnitCross(ref E0.V1);
+            Vector3d N0 = E0.V0.UnitCross(E0.V1);
 
             // Project triangle1 onto normal line of triangle0, test for separation.
             double N0dT0V0 = N0.Dot(ref triangle0.V0);
@@ -268,13 +268,13 @@ namespace g3
             E1.V2 = triangle1.V0 - triangle1.V2;
 
             // Get normal vector of triangle1.
-            Vector3d N1 = E1.V0.UnitCross(ref E1.V1);
+            Vector3d N1 = E1.V0.UnitCross(E1.V1);
 
             Vector3d dir;
             double min0, max0;
             int i0, i1;
 
-            Vector3d N0xN1 = N0.UnitCross(ref N1);
+            Vector3d N0xN1 = N0.UnitCross(N1);
             if (N0xN1.Dot(ref N0xN1) >= MathUtil.ZeroTolerance) {
                 // Triangles are not parallel.
 

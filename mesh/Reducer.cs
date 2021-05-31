@@ -204,7 +204,7 @@ namespace g3
                         return;
 
                     mesh.GetEdgeV(eid, ref va, ref vb);
-                    if (va.DistanceSquared(ref vb) > min_sqr)
+                    if (va.DistanceSquared(vb) > min_sqr)
                         continue;
 
                     COUNT_ITERATIONS++;

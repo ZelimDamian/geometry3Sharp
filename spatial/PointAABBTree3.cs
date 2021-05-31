@@ -376,7 +376,7 @@ namespace g3
             if (FastWindingCache.TryGetValue(iBox, out cacheInfo) == false)
                 return false;
 
-            double dist_qp = cacheInfo.Center.Distance(ref q);
+            double dist_qp = cacheInfo.Center.Distance(q);
             if (dist_qp > FWNBeta * cacheInfo.R)
                 return true;
 
